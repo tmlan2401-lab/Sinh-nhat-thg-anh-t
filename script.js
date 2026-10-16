@@ -27,7 +27,7 @@ form.addEventListener("submit", (event) => {
   const enteredPassword = passwordInput.value.trim();
 
   if (enteredPassword === CORRECT_PASSWORD) {
-    feedback.textContent = "Chính xác! Đang mở bí mật...";
+    feedback.textContent = "Waoo, hihi cứ khen z đi thic lắm...";
     feedback.classList.add("success");
 
     // Ghi nhận mở khóa trong tab hiện tại.
@@ -40,7 +40,7 @@ form.addEventListener("submit", (event) => {
 
   // Mật khẩu sai: giữ nguyên trang hiện tại.
   feedback.classList.remove("success");
-  feedback.textContent = "Mật khẩu chưa đúng. Thử lại nhé!";
+  feedback.textContent = "Sai roi, gà";
 
   passwordInput.setAttribute("aria-invalid", "true");
 
