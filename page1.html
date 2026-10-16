@@ -353,6 +353,32 @@
         width: 100%;
       }
     }
+    
+.next-page {
+  display: none;
+  width: fit-content;
+  margin: 22px auto 0;
+  padding: 10px 24px;
+  color: #d45b8b;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  border: 2px solid #edb2ca;
+  border-radius: 14px;
+  transition: 0.25s;
+  animation: appear 0.7s ease;
+}
+
+.next-page.visible {
+  display: block;
+}
+
+.next-page:hover {
+  background: #d45b8b;
+  color: white;
+  transform: translateY(-3px);
+}
+    
   </style>
 </head>
 
@@ -369,14 +395,12 @@
 
     <section id="birthday-content">
 
-      <h1>Chúc mừng sinh nhật!</h1>
+      <h1>Chúc mừng sinh nhật lần thứ 22 của anh toi!</h1>
 
-      <p class="subtitle">
-        Một tuổi mới, một chương mới và thêm nhiều điều đáng mong chờ.
       </p>
 
       <label class="wish-label" for="wish-input">
-        Hãy viết điều ước của anh khi bước sang tuổi mới
+        Hãy viết điều ước của anh khi bước sang tuổi mới (⁠ﾉ⁠◕⁠ヮ⁠◕⁠)⁠ﾉ⁠*⁠.⁠✧
         <br>
         (yên tâm e k đọc được đâu🥀)
       </label>
@@ -422,10 +446,16 @@
 
         </div>
 
-        <p class="cake-instruction">thổi nến đi!!</p>
-        <p class="small-note">
-          Bấm vào từng ngọn nến để thổi tắt nhé.
-        </p>
+        
+<p class="cake-instruction">thổi nến đi!!</p>
+
+<p class="small-note">
+  Bấm vào từng ngọn nến để thổi tắt.
+</p>
+
+<a href="page2.html" id="next-page" class="next-page">
+  Tiếp theo →
+</a>
 
       </section>
 
