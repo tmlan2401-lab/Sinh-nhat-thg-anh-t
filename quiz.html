@@ -99,7 +99,9 @@
 </head>
 
 <body>
-  <audio id="bg-music" loop preload="auto">
+  
+<body>
+  <audio id="bg-music" loop>
     <source src="./song2.mp3" type="audio/mpeg">
   </audio>
 
@@ -121,11 +123,14 @@
           musicButton.textContent = "♫ Phát nhạc";
         }
       } catch (error) {
-        musicButton.textContent = "Không phát được nhạc";
-        console.error("Lỗi phát nhạc:", error);
+        alert("Không phát được nhạc. Hãy kiểm tra file song2.mp3 nhé!");
+        console.error(error);
       }
     });
   </script>
+
+  <!-- Phần quiz của em tiếp tục ở đây -->
+</body>
 
   <!-- Giữ nguyên phần code quiz hiện tại ở bên dưới -->
 <body>
