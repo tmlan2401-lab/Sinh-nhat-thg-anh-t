@@ -464,60 +464,35 @@
   </main>
 
   <script>
-    const verifyScreen = document.getElementById("verify-screen");
-    const birthdayContent = document.getElementById("birthday-content");
-    const wishForm = document.getElementById("wish-form");
-    const wishInput = document.getElementById("wish-input");
-    const wishFeedback = document.getElementById("wish-feedback");
-    const cakeSection = document.getElementById("cake-section");
+    
+const candles = document.querySelectorAll(".candle");
+const nextPage = document.getElementById("next-page");
 
-    // Chạm màn hình để mở lời chúc sinh nhật
-    function openBirthday() {
-      verifyScreen.classList.add("hidden");
-      birthdayContent.classList.add("show");
+candles.forEach((candle) => {
+  function blowOutCandle() {
+    const flame = candle.querySelector(".flame");
 
-      setTimeout(() => {
-        verifyScreen.style.display = "none";
-      }, 700);
+    if (flame.classList.contains("off")) {
+      return;
     }
 
-    verifyScreen.addEventListener("click", openBirthday);
+    flame.classList.add("off");
 
-    verifyScreen.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        openBirthday();
-      }
-    });
+    const allCandlesOut = [...candles].every((item) =>
+      item.querySelector(".flame").classList.contains("off")
+    );
 
-    // Nhập điều ước rồi bấm Enter
-    wishForm.addEventListener("submit", (event) => {
+    if (allCandlesOut) {
+      nextPage.classList.add("visible");
+    }
+  }
+
+  candle.addEventListener("click", blowOutCandle);
+
+  candle.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-
-      const wish = wishInput.value.trim();
-
-      if (!wish) {
-        wishFeedback.textContent = "Anh chưa viết điều ước kìa!";
-        return;
-      }
-
-      wishFeedback.textContent = "Điều ước đã được gửi đến vũ trụ ♡";
-      cakeSection.classList.add("show");
-    });
-
-    // Bấm vào nến để tắt lửa
-    document.querySelectorAll(".candle").forEach((candle) => {
-      function blowOutCandle() {
-        const flame = candle.querySelector(".flame");
-        flame.classList.add("off");
-      }
-
-      candle.addEventListener("click", blowOutCandle);
-
-      candle.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          blowOutCandle();
+      blowOutCandle();
         }
       });
     });
