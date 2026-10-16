@@ -150,63 +150,63 @@
     </section>
   </main>
 
-  <script>
-    const answerArea = document.querySelector("#answer-area");
-    const yesOption = document.querySelector("#yes-option");
-    const noOption = document.querySelector("#no-option");
-    const feedback = document.querySelector("#quiz-feedback");
-    const nextLink = document.querySelector("#next-link");
 
-    let noClickCount = 0;
+<script>
+  const answerArea = document.querySelector("#answer-area");
+  const yesOption = document.querySelector("#yes-option");
+  const noOption = document.querySelector("#no-option");
+  const feedback = document.querySelector("#quiz-feedback");
+  const nextLink = document.querySelector("#next-link");
 
-    // Bấm câu trả lời đồng ý
-    yesOption.addEventListener("click", () => {
-      feedback.textContent =
-        "Biết ngay anh là người anh trai tuyệt vời mà! 🐴💗";
+  let noClickCount = 0;
 
-      noOption.disabled = true;
-      yesOption.disabled = true;
+  // Bấm câu trả lời đồng ý
+  yesOption.addEventListener("click", () => {
+    feedback.textContent =
+      "Biết ngay anh là người anh trai tuyệt vời mà! 🐴💗";
 
-      nextLink.classList.add("visible");
-    });
+    noOption.disabled = true;
+    yesOption.disabled = true;
 
-    // Bấm câu trả lời từ chối
-    noOption.addEventListener("click", () => {
-      noClickCount++;
+    nextLink.classList.add("visible");
+  });
 
-      if (noClickCount >= 5) {
-        noOption.classList.add("hidden-option");
+  // Bấm câu trả lời từ chối
+  noOption.addEventListener("click", () => {
+    noClickCount++;
 
-        feedback.textContent =
-          "(⁠◍⁠•⁠ᴗ⁠•⁠◍⁠)";
-
-        return;
-      }
+    // Đến lần bấm thứ 5, nút biến mất
+    if (noClickCount >= 5) {
+      noOption.classList.add("hidden-option");
 
       feedback.textContent =
-        "(⁠.⁠ ⁠❛⁠ ⁠ᴗ⁠ ⁠❛⁠.⁠) " +
+        "Nút từ chối đã bị tịch thu. Giờ thì hết đường trốn! (⁠ಠ⁠_⁠ಠ⁠)";
 
-      // Đưa nút đến một vị trí mới trong vùng đáp án
-      const areaRect = answerArea.getBoundingClientRect();
-      const buttonRect = noOption.getBoundingClientRect();
+      return;
+    }
 
-      const maxX = Math.max(
-        0,
-        areaRect.width - buttonRect.width - 16
-      );
+    // Di chuyển nút mà không tiết lộ số lần đã bấm
+    const areaRect = answerArea.getBoundingClientRect();
+    const buttonRect = noOption.getBoundingClientRect();
 
-      const maxY = Math.max(
-        0,
-        areaRect.height - buttonRect.height - 16
-      );
+    const maxX = Math.max(
+      0,
+      areaRect.width - buttonRect.width - 16
+    );
 
-      const randomX = Math.random() * maxX;
-      const randomY = Math.random() * maxY;
+    const maxY = Math.max(
+      0,
+      areaRect.height - buttonRect.height - 16
+    );
 
-      noOption.style.position = "absolute";
-      noOption.style.left = randomX + "px";
-      noOption.style.top = randomY + "px";
-    });
-  </script>
-</body>
-</html>
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noOption.style.position = "absolute";
+    noOption.style.left = randomX + "px";
+    noOption.style.top = randomY + "px";
+
+    // Không hiển thị số lần bấm
+    feedback.textContent = "";
+  });
+</script>
