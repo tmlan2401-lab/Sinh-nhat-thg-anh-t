@@ -98,16 +98,36 @@
   </style>
 </head>
 
-  
-<audio id="bg-music" loop>
-  <source src="song2.mp3" type="audio/mpeg">
-  Trình duyệt không hỗ trợ phát nhạc.
-</audio>
+<body>
+  <audio id="bg-music" loop preload="auto">
+    <source src="./song2.mp3" type="audio/mpeg">
+  </audio>
 
-<button onclick="document.getElementById('bg-music').play()">
-  ♫ Phát nhạc
-</button>
-  
+  <button type="button" id="music-button">
+    ♫ Phát nhạc
+  </button>
+
+  <script>
+    const music = document.getElementById("bg-music");
+    const musicButton = document.getElementById("music-button");
+
+    musicButton.addEventListener("click", async () => {
+      try {
+        if (music.paused) {
+          await music.play();
+          musicButton.textContent = "Ⅱ Tạm dừng nhạc";
+        } else {
+          music.pause();
+          musicButton.textContent = "♫ Phát nhạc";
+        }
+      } catch (error) {
+        musicButton.textContent = "Không phát được nhạc";
+        console.error("Lỗi phát nhạc:", error);
+      }
+    });
+  </script>
+
+  <!-- Giữ nguyên phần code quiz hiện tại ở bên dưới -->
 <body>
   <main class="page-shell">
     <section class="lock-card">
