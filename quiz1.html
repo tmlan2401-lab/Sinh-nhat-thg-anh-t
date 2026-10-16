@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz - Câu 2 🎀</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .quiz-question {
+      margin: 24px 0;
+      color: #814e67;
+      font-size: 1.3rem;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    .answer-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .answer-option {
+      padding: 16px;
+      border: 2px solid #f2c6d8;
+      border-radius: 16px;
+      background: #fff8fb;
+      color: #75485e;
+      font: inherit;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .answer-option:hover {
+      background: #ffe4ef;
+      transform: translateY(-2px);
+    }
+
+    .answer-option:focus-visible {
+      outline: 3px solid #d66b98;
+      outline-offset: 3px;
+    }
+
+    .response-box {
+      display: none;
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .response-box.visible {
+      display: block;
+    }
+
+    .healthy-response {
+      background: #ffe5f0;
+      border: 2px solid #f3b8d0;
+      color: #27844a;
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
+
+    .warning-response {
+      background: #fff0f0;
+      border: 3px solid #ff0000;
+      color: #ff0000;
+      font-size: clamp(1.5rem, 6vw, 2.5rem);
+      font-weight: 900;
+      overflow-wrap: anywhere;
+      animation: warning-flash 0.6s steps(2, start) infinite;
+    }
+
+    .warning-title {
+      display: block;
+      margin-bottom: 16px;
+      font-size: clamp(2rem, 9vw, 3.5rem);
+      letter-spacing: 2px;
+    }
+
+    .warning-message {
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    @keyframes warning-flash {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.35;
+        transform: scale(0.98);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .warning-response {
+        animation: none;
+      }
+
+      .answer-option {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page-shell">
+    <section class="lock-card">
+
+      <div class="success-mark">💗</div>
+
+      <p class="eyebrow">BROTHER VERIFICATION · 02</p>
+
+      <h1>Câu hỏi số 2</h1>
+
+      <p class="quiz-question">
+        Anh có khoẻ hăm (⁠◕⁠ᴗ⁠◕⁠✿⁠)
+      </p>
+
+      <div class="answer-options">
+        <button class="answer-option" data-answer="yes">
+          Có 💗
+        </button>
+
+        <button class="answer-option" data-answer="no">
+          Không 🥲
+        </button>
+      </div>
+
+      <div
+        id="healthy-response"
+        class="response-box healthy-response"
+        role="status"
+        aria-live="polite"
+      >
+        Ừ rs?
+      </div>
+
+      <div
+        id="warning-response"
+        class="response-box warning-response"
+        role="alert"
+        aria-live="assertive"
+      >
+        <span class="warning-title">WARNING!!!</span>
+
+        <p class="warning-message">
+          Báo với bố mẹ r đi khám đi kabsjsbsjnanzosnduxbeidbpwnzkdneibskwvdusbekdueyissnnsvsoanxbdyriwokxbrgsu
+        </p>
+      </div>
+
+    </section>
+  </main>
+
+  <script>
+    const answerButtons = document.querySelectorAll(".answer-option");
+    const healthyResponse = document.querySelector("#healthy-response");
+    const warningResponse = document.querySelector("#warning-response");
+
+    answerButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const answer = button.dataset.answer;
+
+        healthyResponse.classList.remove("visible");
+        warningResponse.classList.remove("visible");
+
+        if (answer === "yes") {
+          healthyResponse.classList.add("visible");
+        } else {
+          warningResponse.classList.add("visible");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
