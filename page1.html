@@ -1,0 +1,497 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday 🎂</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #fff0f5, #f9dce8, #fce9f1);
+      color: #75445a;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: min(92%, 650px);
+      margin: 0 auto;
+      padding: 45px 0 35px;
+    }
+
+    /* Màn hình xác minh */
+
+    #verify-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: linear-gradient(135deg, #fff0f5, #f5c9dc);
+      cursor: pointer;
+      transition: opacity 0.7s ease;
+    }
+
+    #verify-screen h1 {
+      font-size: clamp(24px, 6vw, 38px);
+      margin-bottom: 12px;
+    }
+
+    #verify-screen p {
+      font-size: 16px;
+      animation: blink 1.5s infinite;
+    }
+
+    #verify-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Tiêu đề sinh nhật */
+
+    #birthday-content {
+      display: none;
+      animation: appear 1s ease;
+    }
+
+    #birthday-content.show {
+      display: block;
+    }
+
+    h1 {
+      font-size: clamp(32px, 8vw, 48px);
+      color: #d45b8b;
+      margin: 10px 0;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      margin: 12px 0 28px;
+      line-height: 1.7;
+    }
+
+    /* Ô viết điều ước */
+
+    .wish-label {
+      display: block;
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .wish-form {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    #wish-input {
+      flex: 1;
+      min-width: 0;
+      padding: 13px;
+      border: 2px solid #edb2ca;
+      border-radius: 12px;
+      outline: none;
+      font-size: 16px;
+      background: #fffafd;
+      color: #75445a;
+    }
+
+    #wish-input:focus {
+      border-color: #d45b8b;
+      box-shadow: 0 0 8px #edb2ca;
+    }
+
+    #enter-button {
+      padding: 12px 17px;
+      border: none;
+      border-radius: 12px;
+      background: #d45b8b;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    #enter-button:hover {
+      background: #b84473;
+      transform: translateY(-2px);
+    }
+
+    #wish-feedback {
+      min-height: 25px;
+      margin-top: 12px;
+      font-size: 14px;
+      color: #a84b76;
+    }
+
+    /* Khu vực bánh sinh nhật */
+
+    #cake-section {
+      display: none;
+      margin-top: 12px;
+      animation: appear 1s ease;
+    }
+
+    #cake-section.show {
+      display: block;
+    }
+
+    .cake-scene {
+      position: relative;
+      width: 280px;
+      height: 270px;
+      max-width: 100%;
+      margin: 0 auto;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Đĩa bánh */
+
+    .plate {
+      position: absolute;
+      bottom: 25px;
+      left: 10px;
+      width: 260px;
+      height: 18px;
+      background: #e7a9c2;
+      border-radius: 50%;
+      box-shadow: 0 7px 0 #d58cab;
+    }
+
+    /* Tầng bánh dưới */
+
+    .cake-bottom {
+      position: absolute;
+      bottom: 43px;
+      left: 35px;
+      width: 210px;
+      height: 80px;
+      background: #f4a6c5;
+      border: 3px solid #d982a7;
+      border-radius: 12px 12px 18px 18px;
+      overflow: hidden;
+    }
+
+    .cake-bottom::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 18px;
+      background: #fff0f5;
+      border-radius: 8px 8px 50% 50%;
+    }
+
+    .cake-bottom::after {
+      content: "♥  ♥  ♥  ♥";
+      position: absolute;
+      bottom: 13px;
+      left: 12px;
+      width: 100%;
+      color: #fff5fa;
+      font-size: 17px;
+      letter-spacing: 7px;
+    }
+
+    /* Tầng bánh trên */
+
+    .cake-top {
+      position: absolute;
+      bottom: 123px;
+      left: 57px;
+      width: 166px;
+      height: 48px;
+      background: #ffe2ed;
+      border: 3px solid #e8a1bf;
+      border-radius: 12px 12px 8px 8px;
+    }
+
+    .cake-top::before {
+      content: "";
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      width: 166px;
+      height: 16px;
+      background: #fff7fa;
+      border: 2px solid #e8a1bf;
+      border-radius: 10px 10px 50% 50%;
+    }
+
+    /* Nến */
+
+    .candles {
+      position: absolute;
+      bottom: 171px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    .candle {
+      position: relative;
+      width: 12px;
+      height: 42px;
+      border-radius: 4px 4px 2px 2px;
+      background: repeating-linear-gradient(
+        135deg,
+        #fff8fb 0px,
+        #fff8fb 5px,
+        #e78ab0 5px,
+        #e78ab0 10px
+      );
+      cursor: pointer;
+    }
+
+    .candle:focus-visible {
+      outline: 2px solid #b84473;
+      outline-offset: 5px;
+    }
+
+    .flame {
+      position: absolute;
+      top: -25px;
+      left: 1px;
+      width: 10px;
+      height: 19px;
+      background: #ffb52e;
+      border-radius: 50% 50% 45% 45%;
+      transform: rotate(0deg);
+      box-shadow: 0 0 12px #ffbf47;
+      animation: flicker 0.6s ease-in-out infinite alternate;
+      transform-origin: center bottom;
+    }
+
+    .flame::after {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 3px;
+      width: 4px;
+      height: 9px;
+      background: #fff5b5;
+      border-radius: 50%;
+    }
+
+    .flame.off {
+      display: none;
+    }
+
+    .cake-instruction {
+      margin-top: 8px;
+      color: #d45b8b;
+      font-size: 23px;
+      font-weight: bold;
+      animation: blink 1.2s infinite;
+    }
+
+    .small-note {
+      font-size: 13px;
+      color: #a86d87;
+      margin-top: 10px;
+    }
+
+    /* Hiệu ứng */
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-9px);
+      }
+    }
+
+    @keyframes flicker {
+      from {
+        transform: rotate(-5deg) scale(1);
+      }
+      to {
+        transform: rotate(5deg) scale(1.12, 0.92);
+      }
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.55; }
+    }
+
+    @media (max-width: 400px) {
+      .wish-form {
+        flex-direction: column;
+      }
+
+      #enter-button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Màn hình xác minh danh tính -->
+
+  <div id="verify-screen" role="button" tabindex="0">
+    <h1>✓ Xác minh danh tính thành công</h1>
+    <p>Chạm vào màn hình để tiếp tục ♡</p>
+  </div>
+
+  <main class="container">
+
+    <section id="birthday-content">
+
+      <h1>Chúc mừng sinh nhật!</h1>
+
+      <p class="subtitle">
+        Một tuổi mới, một chương mới và thêm nhiều điều đáng mong chờ.
+      </p>
+
+      <label class="wish-label" for="wish-input">
+        Hãy viết điều ước của anh khi bước sang tuổi mới
+        <br>
+        (yên tâm e k đọc được đâu🥀)
+      </label>
+
+      <form class="wish-form" id="wish-form">
+        <input
+          id="wish-input"
+          type="text"
+          placeholder="Viết điều ước ở đây..."
+          autocomplete="off"
+          maxlength="500"
+          required
+        >
+
+        <button id="enter-button" type="submit">
+          Enter
+        </button>
+      </form>
+
+      <p id="wish-feedback" aria-live="polite"></p>
+
+      <section id="cake-section">
+
+        <div class="cake-scene" aria-label="Bánh sinh nhật hoạt hình">
+
+          <div class="plate"></div>
+          <div class="cake-bottom"></div>
+          <div class="cake-top"></div>
+
+          <div class="candles">
+            <div class="candle" role="button" tabindex="0" aria-label="Tắt nến">
+              <div class="flame"></div>
+            </div>
+
+            <div class="candle" role="button" tabindex="0" aria-label="Tắt nến">
+              <div class="flame"></div>
+            </div>
+
+            <div class="candle" role="button" tabindex="0" aria-label="Tắt nến">
+              <div class="flame"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <p class="cake-instruction">thổi nến đi!!</p>
+        <p class="small-note">
+          Bấm vào từng ngọn nến để thổi tắt nhé.
+        </p>
+
+      </section>
+
+    </section>
+
+  </main>
+
+  <script>
+    const verifyScreen = document.getElementById("verify-screen");
+    const birthdayContent = document.getElementById("birthday-content");
+    const wishForm = document.getElementById("wish-form");
+    const wishInput = document.getElementById("wish-input");
+    const wishFeedback = document.getElementById("wish-feedback");
+    const cakeSection = document.getElementById("cake-section");
+
+    // Chạm màn hình để mở lời chúc sinh nhật
+    function openBirthday() {
+      verifyScreen.classList.add("hidden");
+      birthdayContent.classList.add("show");
+
+      setTimeout(() => {
+        verifyScreen.style.display = "none";
+      }, 700);
+    }
+
+    verifyScreen.addEventListener("click", openBirthday);
+
+    verifyScreen.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openBirthday();
+      }
+    });
+
+    // Nhập điều ước rồi bấm Enter
+    wishForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const wish = wishInput.value.trim();
+
+      if (!wish) {
+        wishFeedback.textContent = "Anh chưa viết điều ước kìa!";
+        return;
+      }
+
+      wishFeedback.textContent = "Điều ước đã được gửi đến vũ trụ ♡";
+      cakeSection.classList.add("show");
+    });
+
+    // Bấm vào nến để tắt lửa
+    document.querySelectorAll(".candle").forEach((candle) => {
+      function blowOutCandle() {
+        const flame = candle.querySelector(".flame");
+        flame.classList.add("off");
+      }
+
+      candle.addEventListener("click", blowOutCandle);
+
+      candle.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          blowOutCandle();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
