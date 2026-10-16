@@ -190,30 +190,51 @@
   <script>
     // XỬ LÝ NHẠC
     const music = document.getElementById("bg-music");
-    const musicButton = document.getElementById("music-button");
-    const musicStatus = document.getElementById("music-status");
+    
+const music = document.getElementById("bg-music");
+const musicButton = document.getElementById("music-button");
+const musicStatus = document.getElementById("music-status");
 
-    musicButton.addEventListener("click", async () => {
-      if (music.paused) {
+musicButton.addEventListener("click", async () => {
+    if (music.paused) {
+        musicStatus.textContent = "Đang tải nhạc...";
+
         try {
-          await music.play();
-          musicButton.textContent = "Ⅱ Tạm dừng nhạc";
-          musicStatus.textContent = "";
+            await music.play();
+
+            musicButton.textContent = "Ⅱ Tạm dừng nhạc";
+            musicStatus.textContent = "";
         } catch (error) {
-          musicStatus.textContent =
-            "Không phát được nhạc. Hãy kiểm tra file song2.mp3.";
-          console.error("Lỗi phát nhạc:", error);
+            console.error("Lỗi phát nhạc:", error);
+
+            musicStatus.textContent =
+                "Không phát được nhạc. Hãy kiểm tra đường dẫn và định dạng file.";
+
+            musicButton.textContent = "♫ Thử phát lại";
         }
-      } else {
+    } else {
         music.pause();
         musicButton.textContent = "♫ Phát nhạc";
         musicStatus.textContent = "";
-      }
-    });
+    }
+});
 
-    music.addEventListener("error", () => {
-      musicStatus.textContent =
-        "Không tìm thấy hoặc không đọc được file song2.mp3.";
+music.addEventListener("error", () => {
+    const errorCode = music.error?.code;
+
+    const errors = {
+        1: "Việc tải nhạc đã bị hủy.",
+        2: "Lỗi mạng khi tải file nhạc.",
+        3: "Trình duyệt không giải mã được file nhạc.",
+        4: "Không tìm thấy file hoặc định dạng không được hỗ trợ."
+    };
+
+    musicStatus.textContent =
+        errors[errorCode] || "Đã xảy ra lỗi khi tải nhạc.";
+
+    console.error("Audio error:", {
+        code: errorCode,
+        source: music.currentSrc
     });
 
     // XỬ LÝ CÂU HỎI QUIZ
