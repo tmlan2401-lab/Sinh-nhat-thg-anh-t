@@ -1,14 +1,16 @@
 
+/* ===== Pastel Birthday Theme ===== */
 :root {
-  color-scheme: dark;
-  --bg: #0b0911;
-  --card: rgba(23, 19, 34, 0.92);
-  --text: #f8f4ff;
-  --muted: #bcb2ca;
-  --purple: #c4a2ff;
-  --purple-bright: #dfcaff;
-  --line: rgba(207, 180, 255, 0.2);
-  --danger: #ff9fae;
+  color-scheme: light;
+  --bg: #fff7fa;
+  --card: rgba(255, 255, 255, 0.9);
+  --text: #754b60;
+  --muted: #a68193;
+  --pink: #e99ab9;
+  --pink-dark: #c96f97;
+  --pink-light: #ffe1ec;
+  --line: #f4d2df;
+  --danger: #c84d78;
 }
 
 * {
@@ -22,21 +24,54 @@ html {
 body {
   min-height: 100vh;
   margin: 0;
-  font-family: Inter, system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow-x: hidden;
+  position: relative;
+  isolation: isolate;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
   color: var(--text);
   background:
     radial-gradient(
-      ellipse at 15% 15%,
-      rgba(109, 63, 155, 0.2),
-      transparent 36%
+      circle at 12% 15%,
+      #ffe6ef 0,
+      transparent 28%
     ),
     radial-gradient(
-      ellipse at 85% 80%,
-      rgba(62, 45, 120, 0.2),
-      transparent 34%
+      circle at 88% 82%,
+      #fce1ed 0,
+      transparent 30%
     ),
     var(--bg);
+}
+
+/* Background bánh sinh nhật bay lơ lửng */
+body::before,
+body::after {
+  content: "🎂   🧁   🎂   🧁";
+  position: fixed;
+  z-index: -1;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  letter-spacing: clamp(22px, 7vw, 90px);
+  font-size: clamp(22px, 3.8vw, 42px);
+  opacity: 0.28;
+  animation: cake-float 15s ease-in-out infinite alternate;
+}
+
+body::before {
+  top: 12%;
+  transform: rotate(-8deg);
+}
+
+body::after {
+  content: "🧁   🎂   🧁   🎂";
+  top: 68%;
+  opacity: 0.22;
+  transform: rotate(7deg);
+  animation-duration: 19s;
+  animation-direction: alternate-reverse;
 }
 
 button,
@@ -52,59 +87,60 @@ input {
 }
 
 .lock-card {
-  width: min(100%, 480px);
+  width: min(100%, 460px);
   position: relative;
   overflow: hidden;
-  padding: 42px 34px 30px;
+  padding: 40px 32px 28px;
   text-align: center;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(244, 210, 223, 0.95);
   border-radius: 28px;
   background: var(--card);
   box-shadow:
-    0 24px 80px rgba(0, 0, 0, 0.42),
-    0 0 50px rgba(145, 95, 210, 0.08);
-  backdrop-filter: blur(16px);
-  animation: card-enter 650ms ease both;
+    0 18px 55px rgba(203, 126, 159, 0.14),
+    0 4px 16px rgba(203, 126, 159, 0.07);
+  backdrop-filter: blur(10px);
+  animation: card-appear 600ms ease both;
 }
 
-.orb {
+/* Hoa nhỏ trang trí ở góc */
+.lock-card::before,
+.lock-card::after {
+  content: "✿";
   position: absolute;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  filter: blur(50px);
-  opacity: 0.18;
+  color: #f4bfd2;
+  opacity: 0.65;
   pointer-events: none;
 }
 
-.orb-one {
-  top: -90px;
-  left: -50px;
-  background: #b36cff;
+.lock-card::before {
+  top: 13px;
+  left: 18px;
+  font-size: 22px;
 }
 
-.orb-two {
-  right: -75px;
-  bottom: -100px;
-  background: #6b8dff;
+.lock-card::after {
+  right: 18px;
+  bottom: 12px;
+  font-size: 19px;
 }
 
+/* Biểu tượng ổ khóa */
 .lock-icon {
-  display: grid;
-  place-items: center;
   width: 76px;
   height: 76px;
-  margin: 0 auto 23px;
-  border: 1px solid rgba(211, 185, 255, 0.3);
-  border-radius: 24px;
-  background: rgba(179, 132, 255, 0.09);
-  box-shadow: 0 0 34px rgba(173, 124, 255, 0.12);
+  display: grid;
+  place-items: center;
+  margin: 0 auto 22px;
+  border: 1px solid #f5cfde;
+  border-radius: 25px;
+  background: linear-gradient(145deg, #fff5f9, #ffe1ec);
+  box-shadow: 0 8px 22px rgba(216, 133, 166, 0.13);
 }
 
 .lock-icon svg {
   width: 42px;
   fill: none;
-  stroke: var(--purple-bright);
+  stroke: var(--pink-dark);
   stroke-width: 2.5;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -112,26 +148,28 @@ input {
 
 .eyebrow {
   margin: 0 0 12px;
-  color: var(--purple);
+  color: var(--pink-dark);
   font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
 }
 
 h1 {
   margin: 0;
-  font-size: clamp(1.65rem, 5vw, 2.15rem);
-  line-height: 1.2;
-  letter-spacing: -0.04em;
+  color: #88566f;
+  font-size: clamp(1.65rem, 5vw, 2.1rem);
+  line-height: 1.25;
+  letter-spacing: -0.035em;
 }
 
 .intro {
   margin: 14px 0 25px;
   color: var(--muted);
   font-size: 0.95rem;
-  line-height: 1.65;
+  line-height: 1.7;
 }
 
+/* Ô nhập mật khẩu */
 #password-form {
   position: relative;
 }
@@ -141,24 +179,26 @@ h1 {
   width: 100%;
   min-height: 52px;
   padding: 0 16px;
-  color: var(--text);
-  background: rgba(7, 6, 12, 0.65);
-  border: 1px solid rgba(207, 180, 255, 0.25);
-  border-radius: 13px;
+  color: #754b60;
+  background: #fffafd;
+  border: 1px solid #efcada;
+  border-radius: 14px;
   outline: none;
-  transition: border-color 180ms ease,
+  transition:
+    border-color 180ms ease,
     box-shadow 180ms ease;
 }
 
 #password-input::placeholder {
-  color: #82788f;
+  color: #c3a0b1;
 }
 
 #password-input:focus {
-  border-color: var(--purple);
-  box-shadow: 0 0 0 4px rgba(196, 162, 255, 0.1);
+  border-color: #e99ab9;
+  box-shadow: 0 0 0 4px rgba(233, 154, 185, 0.17);
 }
 
+/* Các nút */
 .actions {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -167,11 +207,11 @@ h1 {
 }
 
 .button {
-  min-height: 48px;
+  min-height: 47px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
+  gap: 8px;
   padding: 0 18px;
   border: 1px solid transparent;
   border-radius: 13px;
@@ -179,9 +219,10 @@ h1 {
   font-weight: 750;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 160ms ease,
-    border-color 160ms ease,
-    background 160ms ease;
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .button:hover {
@@ -193,51 +234,58 @@ h1 {
 }
 
 .button:focus-visible {
-  outline: 3px solid var(--purple-bright);
+  outline: 3px solid #e99ab9;
   outline-offset: 3px;
 }
 
 .button-primary {
-  color: #1a1026;
-  background: linear-gradient(135deg, #dfcaff, #b994ff);
-  box-shadow: 0 7px 22px rgba(165, 115, 255, 0.18);
+  color: #fff;
+  background: linear-gradient(135deg, #efb0c8, #dc86a9);
+  box-shadow: 0 7px 17px rgba(215, 123, 160, 0.2);
+}
+
+.button-primary:hover {
+  background: linear-gradient(135deg, #e99fbc, #d8759c);
+  box-shadow: 0 9px 20px rgba(215, 123, 160, 0.25);
 }
 
 .button-secondary {
-  color: var(--purple-bright);
-  background: rgba(196, 162, 255, 0.07);
-  border-color: var(--line);
+  color: #bd6d91;
+  background: #fff5f9;
+  border-color: #f1cddd;
 }
 
 .button-secondary:hover {
-  background: rgba(196, 162, 255, 0.13);
+  background: #ffeaf2;
 }
 
+/* Ô gợi ý */
 .hint-box {
   margin-top: 15px;
   padding: 15px 17px;
   text-align: left;
-  border: 1px solid rgba(196, 162, 255, 0.28);
+  border: 1px solid #f0c7d8;
   border-radius: 14px;
-  background: rgba(140, 94, 197, 0.11);
-  animation: hint-enter 220ms ease both;
+  background: #fff2f7;
+  animation: hint-appear 220ms ease both;
 }
 
 .hint-label {
   margin: 0 0 7px;
-  color: var(--purple);
+  color: #c36f94;
   font-size: 0.68rem;
   font-weight: 800;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.15em;
 }
 
 .hint-box p:last-child {
   margin: 0;
-  color: #eee5ff;
+  color: #88566f;
   font-size: 0.9rem;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
+/* Thông báo */
 .feedback {
   min-height: 22px;
   margin: 13px 0 0;
@@ -247,33 +295,34 @@ h1 {
 }
 
 .feedback.success {
-  color: #a7f3d0;
+  color: #5d9b7a;
 }
 
 .tiny-note {
   margin: 18px 0 0;
-  color: #82788f;
-  font-size: 0.73rem;
-  line-height: 1.5;
+  color: #b493a3;
+  font-size: 0.74rem;
+  line-height: 1.55;
 }
 
+/* Trang bí mật */
 .secret-card {
-  padding-top: 48px;
+  padding-top: 46px;
 }
 
 .success-mark {
-  display: grid;
-  place-items: center;
   width: 70px;
   height: 70px;
+  display: grid;
+  place-items: center;
   margin: 0 auto 22px;
-  color: #d7c0ff;
+  color: #d77fa2;
   font-size: 2rem;
-  border: 1px solid var(--line);
+  border: 1px solid #f1cddd;
   border-radius: 50%;
-  background: rgba(196, 162, 255, 0.1);
-  box-shadow: 0 0 35px rgba(173, 124, 255, 0.15);
-  animation: sparkle 2.2s ease-in-out infinite;
+  background: linear-gradient(145deg, #fff5f9, #ffe2ed);
+  box-shadow: 0 7px 22px rgba(216, 133, 166, 0.14);
+  animation: gentle-sparkle 2.4s ease-in-out infinite;
 }
 
 .secret-message {
@@ -283,25 +332,21 @@ h1 {
   gap: 10px;
   margin: 26px 0 20px;
   padding: 22px 15px;
-  border: 1px solid rgba(196, 162, 255, 0.35);
+  border: 1px solid #f0c7d8;
   border-radius: 18px;
-  background: linear-gradient(
-    135deg,
-    rgba(196, 162, 255, 0.12),
-    rgba(112, 76, 167, 0.08)
-  );
+  background: linear-gradient(135deg, #fff4f8, #ffe5ef);
 }
 
 .secret-message p {
   margin: 0;
-  color: var(--purple-bright);
+  color: #bd6d91;
   font-size: clamp(1.05rem, 4vw, 1.35rem);
   font-weight: 800;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .message-sparkle {
-  color: #e8d9ff;
+  color: #df94b1;
 }
 
 .closing-line {
@@ -312,6 +357,7 @@ h1 {
   width: 100%;
 }
 
+/* Ẩn nhãn hỗ trợ trình đọc màn hình */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -324,53 +370,75 @@ h1 {
   border: 0;
 }
 
+/* Rung nhẹ khi nhập sai */
 .shake {
-  animation: shake 320ms ease;
+  animation: gentle-shake 320ms ease;
 }
 
-@keyframes card-enter {
+/* Chuyển động bánh sinh nhật */
+@keyframes cake-float {
+  0% {
+    transform: translate3d(-12px, -8px, 0) rotate(-8deg);
+  }
+
+  50% {
+    transform: translate3d(15px, 12px, 0) rotate(2deg);
+  }
+
+  100% {
+    transform: translate3d(-5px, -14px, 0) rotate(-4deg);
+  }
+}
+
+@keyframes card-appear {
   from {
     opacity: 0;
     transform: translateY(12px) scale(0.985);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 }
 
-@keyframes hint-enter {
+@keyframes hint-appear {
   from {
     opacity: 0;
     transform: translateY(-5px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-@keyframes sparkle {
+@keyframes gentle-sparkle {
   0%, 100% {
-    transform: rotate(0) scale(1);
+    transform: rotate(-3deg) scale(1);
   }
+
   50% {
-    transform: rotate(5deg) scale(1.04);
+    transform: rotate(3deg) scale(1.04);
   }
 }
 
-@keyframes shake {
+@keyframes gentle-shake {
   0%, 100% {
     transform: translateX(0);
   }
+
   25% {
     transform: translateX(-5px);
   }
+
   75% {
     transform: translateX(5px);
   }
 }
 
+/* Tối ưu trên điện thoại */
 @media (max-width: 420px) {
   .lock-card {
     padding: 34px 21px 25px;
@@ -386,6 +454,7 @@ h1 {
   }
 }
 
+/* Tôn trọng cài đặt giảm chuyển động */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
