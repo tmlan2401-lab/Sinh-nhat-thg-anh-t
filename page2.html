@@ -1,0 +1,645 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lời chúc sinh nhật ♡</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --pink: #ed75aa;
+      --dark-pink: #c72f79;
+      --text: #86415f;
+      --glass: rgba(255, 248, 252, 0.64);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      text-align: center;
+      background:
+        radial-gradient(ellipse at 15% 20%, rgba(255,255,255,.9), transparent 35%),
+        radial-gradient(ellipse at 85% 65%, rgba(255,255,255,.65), transparent 35%),
+        linear-gradient(135deg, #ffe8f2, #f8cfe2, #fff0f7);
+      position: relative;
+    }
+
+    /* LỚP TRANG TRÍ PHÍA SAU */
+
+    .background-effects {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      color: rgba(238, 93, 157, 0.34);
+      text-shadow: 0 0 15px rgba(255,255,255,.9);
+      animation: heartFloat 7s ease-in-out infinite;
+      user-select: none;
+    }
+
+    .heart:nth-child(1) {
+      top: 9%;
+      left: 5%;
+      font-size: 40px;
+    }
+
+    .heart:nth-child(2) {
+      top: 23%;
+      right: 8%;
+      font-size: 54px;
+      animation-delay: -2s;
+    }
+
+    .heart:nth-child(3) {
+      top: 43%;
+      left: 9%;
+      font-size: 32px;
+      animation-delay: -4s;
+    }
+
+    .heart:nth-child(4) {
+      top: 57%;
+      right: 7%;
+      font-size: 43px;
+      animation-delay: -1s;
+    }
+
+    .heart:nth-child(5) {
+      top: 74%;
+      left: 13%;
+      font-size: 47px;
+      animation-delay: -3s;
+    }
+
+    .heart:nth-child(6) {
+      top: 84%;
+      right: 14%;
+      font-size: 35px;
+      animation-delay: -5s;
+    }
+
+    .heart:nth-child(7) {
+      top: 35%;
+      left: 48%;
+      font-size: 24px;
+      animation-delay: -2.5s;
+    }
+
+    .sparkle {
+      position: absolute;
+      color: white;
+      font-size: 19px;
+      text-shadow: 0 0 9px #fff, 0 0 18px #ed75aa;
+      animation: sparkle 2s ease-in-out infinite alternate;
+    }
+
+    .sparkle:nth-child(8) {
+      top: 13%;
+      left: 29%;
+    }
+
+    .sparkle:nth-child(9) {
+      top: 31%;
+      right: 27%;
+      animation-delay: .8s;
+    }
+
+    .sparkle:nth-child(10) {
+      top: 49%;
+      right: 20%;
+      animation-delay: 1.2s;
+    }
+
+    .sparkle:nth-child(11) {
+      top: 67%;
+      left: 29%;
+      animation-delay: .4s;
+    }
+
+    .sparkle:nth-child(12) {
+      top: 78%;
+      right: 33%;
+      animation-delay: 1.5s;
+    }
+
+    .sparkle:nth-child(13) {
+      top: 91%;
+      left: 23%;
+      animation-delay: .7s;
+    }
+
+    /* NỘI DUNG CHÍNH */
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(92%, 680px);
+      margin: 0 auto;
+      padding: 35px 0 40px;
+    }
+
+    .title-box {
+      padding: 22px 16px;
+      margin-bottom: 24px;
+      background: rgba(255, 250, 253, .62);
+      border: 2px solid rgba(255, 255, 255, .92);
+      border-radius: 25px;
+      box-shadow:
+        0 0 20px rgba(235, 117, 170, .18),
+        inset 0 0 18px rgba(255, 255, 255, .7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      animation: appear 1s ease;
+    }
+
+    .title-box h1 {
+      margin: 0;
+      color: var(--dark-pink);
+      font-size: clamp(23px, 6vw, 34px);
+      line-height: 1.5;
+      text-shadow: 0 2px 8px rgba(255,255,255,.9);
+    }
+
+    .title-decoration {
+      color: var(--pink);
+      font-size: 21px;
+      margin-top: 8px;
+      letter-spacing: 5px;
+    }
+
+    .instruction {
+      display: inline-block;
+      margin: 0 0 20px;
+      padding: 10px 18px;
+      border-radius: 30px;
+      background: rgba(255,255,255,.5);
+      border: 1px solid rgba(255,255,255,.9);
+      color: #bd4c83;
+      font-size: 15px;
+      animation: blink 1.8s infinite;
+    }
+
+    /* KHUNG LỜI CHÚC */
+
+    .wishes-box {
+      padding: 25px 23px;
+      border-radius: 28px;
+      background: var(--glass);
+      border: 2px solid rgba(255,255,255,.85);
+      box-shadow:
+        0 8px 30px rgba(196, 83, 137, .13),
+        inset 0 0 25px rgba(255,255,255,.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      text-align: left;
+    }
+
+    .wish {
+      display: none;
+      margin: 0 0 25px;
+      padding: 0 0 20px;
+      border-bottom: 1px dashed rgba(214, 104, 157, .3);
+      font-size: 17px;
+      line-height: 1.9;
+      overflow-wrap: anywhere;
+    }
+
+    .wish:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .wish.show {
+      display: block;
+      animation: wishAppear .8s ease both;
+    }
+
+    /* Bốn đoạn đầu in đậm */
+
+    .wish.bold-wish {
+      font-weight: 700;
+    }
+
+    /* Chữ đầu câu màu hồng đậm */
+
+    .pink-word {
+      color: var(--dark-pink);
+      font-weight: 800;
+    }
+
+    .first-letter {
+      color: var(--dark-pink);
+      font-weight: 800;
+      font-size: 1.15em;
+    }
+
+    .end-message {
+      display: none;
+      margin-top: 22px;
+      color: var(--dark-pink);
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.8;
+      animation: appear .8s ease;
+    }
+
+    .end-message.show {
+      display: block;
+    }
+
+    /* BÁNH SINH NHẬT TRANG TRÍ */
+
+    .cake-area {
+      position: relative;
+      width: 230px;
+      height: 185px;
+      margin: 34px auto 0;
+      animation: cakeFloat 3s ease-in-out infinite;
+    }
+
+    .cake-plate {
+      position: absolute;
+      bottom: 10px;
+      left: 5px;
+      width: 220px;
+      height: 18px;
+      background: #eaa5c6;
+      border-radius: 50%;
+      box-shadow: 0 5px 0 #d886ae;
+    }
+
+    .cake-body {
+      position: absolute;
+      bottom: 25px;
+      left: 31px;
+      width: 168px;
+      height: 75px;
+      background: linear-gradient(90deg, #f4a6c7, #ffd5e7, #ef9fc1);
+      border: 3px solid #e49abd;
+      border-radius: 12px 12px 18px 18px;
+      box-shadow: inset 0 -10px 0 rgba(218, 105, 157, .12);
+    }
+
+    .cake-icing {
+      position: absolute;
+      top: -4px;
+      left: -3px;
+      width: 168px;
+      height: 25px;
+      background: #fff7fb;
+      border: 2px solid #e8a2c0;
+      border-radius: 50% 50% 13px 13px;
+    }
+
+    .cake-icing::after {
+      content: "♥  ♥  ♥";
+      position: absolute;
+      top: 32px;
+      left: 24px;
+      color: #fff7fb;
+      font-size: 16px;
+      letter-spacing: 8px;
+    }
+
+    .cake-candles {
+      position: absolute;
+      bottom: 98px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .cake-candle {
+      position: relative;
+      width: 10px;
+      height: 36px;
+      border-radius: 3px;
+      background: repeating-linear-gradient(
+        135deg,
+        #fff 0 4px,
+        #ec8db5 4px 8px
+      );
+    }
+
+    .cake-flame {
+      position: absolute;
+      top: -17px;
+      left: 1px;
+      width: 8px;
+      height: 14px;
+      border-radius: 50% 50% 45% 45%;
+      background: #ffc64e;
+      box-shadow: 0 0 12px #ffcc67;
+      animation: flicker .6s ease-in-out infinite alternate;
+    }
+
+    .cake-hearts {
+      margin-top: 5px;
+      color: #d45b8b;
+      font-size: 21px;
+      letter-spacing: 7px;
+      text-shadow: 0 0 8px white;
+    }
+
+    /* HIỆU ỨNG */
+
+    @keyframes heartFloat {
+      0%, 100% {
+        transform: translateY(0) rotate(-8deg);
+      }
+
+      50% {
+        transform: translateY(-24px) rotate(8deg);
+      }
+    }
+
+    @keyframes sparkle {
+      from {
+        opacity: .35;
+        transform: scale(.7) rotate(0deg);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1.25) rotate(25deg);
+      }
+    }
+
+    @keyframes blink {
+      0%, 100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: .55;
+      }
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes wishAppear {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes cakeFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes flicker {
+      from {
+        transform: rotate(-6deg) scale(1);
+      }
+
+      to {
+        transform: rotate(6deg) scale(1.12, .92);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page {
+        padding-top: 22px;
+      }
+
+      .wishes-box {
+        padding: 20px 17px;
+      }
+
+      .wish {
+        font-size: 16px;
+        line-height: 1.85;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TRÁI TIM VÀ ÁNH SÁNG Ở PHÍA SAU -->
+
+  <div class="background-effects" aria-hidden="true">
+    <span class="heart">♡</span>
+    <span class="heart">♥</span>
+    <span class="heart">♡</span>
+    <span class="heart">♥</span>
+    <span class="heart">♡</span>
+    <span class="heart">♥</span>
+    <span class="heart">♡</span>
+
+    <span class="sparkle">✦</span>
+    <span class="sparkle">✧</span>
+    <span class="sparkle">✦</span>
+    <span class="sparkle">✧</span>
+    <span class="sparkle">✦</span>
+    <span class="sparkle">✧</span>
+  </div>
+
+  <main class="page">
+
+    <!-- TIÊU ĐỀ -->
+
+    <header class="title-box">
+      <h1>
+        Lời chúc em gái muốn gửi đến cho anh
+        (⁠ ⁠/⁠^⁠ω⁠^⁠)⁠/⁠♪⁠♪
+      </h1>
+
+      <div class="title-decoration">♡ ✧ ♡ ✧ ♡</div>
+    </header>
+
+    <p class="instruction" id="instruction">
+      Chạm vào màn hình để mở lời chúc ♡
+    </p>
+
+    <!-- CÁC ĐOẠN LỜI CHÚC -->
+
+    <section class="wishes-box" id="wishes-box"
+             aria-label="Những lời chúc sinh nhật">
+
+      <p class="wish bold-wish">
+        <span class="pink-word">ANH</span> bước sang tuổi mới thêm vững vàng
+        và luôn gặp được những điều tốt đẹp nhất.
+        Cảm ơn anh vì đã là anh trai của em!
+      </p>
+
+      <p class="wish bold-wish">
+        <span class="pink-word">KHOA</span> học đã chứng minh người anh
+        tuyệt vời nhất thế giới chính là anh đó!
+      </p>
+
+      <p class="wish bold-wish">
+        <span class="pink-word">ĂN</span> sinh nhật vui vẻ nhé anh trai!
+        Chúc anh tuổi mới vạn sự như ý, công việc thuận lợi
+        và luôn hạnh phúc!
+      </p>
+
+      <p class="wish bold-wish">
+        <span class="pink-word">CỨ</span> đến ngày này là anh trai em lại
+        già thêm một tuổi, nhưng bù lại thì bảnh bao và phong độ
+        hơn hẳn! Chúc anh tuổi mới tiền vào như nước!
+      </p>
+
+      <p class="wish">
+        <span class="first-letter">T</span>hương chúc anh trai của em
+        một sinh nhật thật nhiều niềm vui, sức khỏe và may mắn!
+        Cảm ơn anh vì đã luôn là chỗ dựa vững chắc
+        và nhường nhịn em
+      </p>
+
+    </section>
+
+    <p class="end-message" id="end-message">
+      Chúc mừng sinh nhật anh trai! ♡
+      <br>
+      Mong rằng mọi điều tốt đẹp nhất sẽ luôn đến với anh.
+      <br>
+      Thương anh nhiều! ✧
+    </p>
+
+    <!-- BÁNH SINH NHẬT -->
+
+    <div class="cake-area" aria-label="Bánh sinh nhật trang trí">
+
+      <div class="cake-plate"></div>
+
+      <div class="cake-body">
+        <div class="cake-icing"></div>
+      </div>
+
+      <div class="cake-candles">
+        <div class="cake-candle">
+          <div class="cake-flame"></div>
+        </div>
+
+        <div class="cake-candle">
+          <div class="cake-flame"></div>
+        </div>
+
+        <div class="cake-candle">
+          <div class="cake-flame"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cake-hearts" aria-hidden="true">♡ ♥ ♡ ♥ ♡</div>
+
+  </main>
+
+  <script>
+    const wishes = document.querySelectorAll(".wish");
+    const instruction = document.getElementById("instruction");
+    const endMessage = document.getElementById("end-message");
+
+    let currentWish = 0;
+
+    function showNextWish() {
+      if (currentWish < wishes.length) {
+        wishes[currentWish].classList.add("show");
+
+        currentWish++;
+
+        if (currentWish < wishes.length) {
+          instruction.textContent =
+            "Chạm tiếp để đọc lời chúc tiếp theo ♡";
+        } else {
+          instruction.textContent =
+            "Đã mở hết lời chúc rồi đó! ♡";
+
+          endMessage.classList.add("show");
+          instruction.style.animation = "none";
+        }
+
+        // Cuộn nhẹ để đoạn vừa hiện nằm trong tầm nhìn
+        wishes[currentWish - 1].scrollIntoView({
+          behavior: "smooth",
+          block: "nearest"
+        });
+
+        if (currentWish === wishes.length) {
+          setTimeout(() => {
+            endMessage.scrollIntoView({
+              behavior: "smooth",
+              block: "nearest"
+            });
+          }, 500);
+        }
+      } else {
+        // Sau khi mở hết lời chúc, chạm thêm không làm mất nội dung
+        endMessage.classList.add("show");
+      }
+    }
+
+    // Chạm vào màn hình để hiện từng đoạn.
+    // Không chặn thao tác cuộn trang hoặc chọn văn bản.
+    document.addEventListener("click", (event) => {
+      if (event.target.closest("a, button")) return;
+
+      showNextWish();
+    });
+
+    // Hỗ trợ bàn phím
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        const tag = document.activeElement.tagName;
+
+        if (tag === "BUTTON" || tag === "A" || tag === "INPUT") {
+          return;
+        }
+
+        event.preventDefault();
+        showNextWish();
+      }
+    });
+  </script>
+
+</body>
+</html>
