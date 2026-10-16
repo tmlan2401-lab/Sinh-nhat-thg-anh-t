@@ -1,5 +1,5 @@
 
-const CORRECT_PASSWORD = "Em gái cute bá khí nhất thế giới";
+const CORRECT_PASSWORD = "Emgaicutebakhinhatthegioi";
 
 const form = document.querySelector("#password-form");
 const passwordInput = document.querySelector("#password-input");
