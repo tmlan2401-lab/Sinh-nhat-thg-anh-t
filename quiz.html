@@ -90,6 +90,31 @@
       color: #a94775;
     }
 
+    /* NÚT NHẠC */
+    .music-button {
+      display: block;
+      margin: 16px auto;
+      padding: 10px 18px;
+      border: 2px solid #f2c6d8;
+      border-radius: 24px;
+      background: #fff8fb;
+      color: #814e67;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .music-button:hover {
+      background: #ffe5ef;
+      border-color: #e8a0bf;
+    }
+
+    .music-status {
+      margin: 8px 0;
+      color: #a34e75;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .quiz-option {
         transition: none;
@@ -99,41 +124,13 @@
 </head>
 
 <body>
-  
-<body>
-  <audio id="bg-music" loop>
+
+  <!-- NHẠC NỀN -->
+  <audio id="bg-music" loop preload="auto">
     <source src="./song2.mp3" type="audio/mpeg">
+    Trình duyệt không hỗ trợ phát nhạc.
   </audio>
 
-  <button type="button" id="music-button">
-    ♫ Phát nhạc
-  </button>
-
-  <script>
-    const music = document.getElementById("bg-music");
-    const musicButton = document.getElementById("music-button");
-
-    musicButton.addEventListener("click", async () => {
-      try {
-        if (music.paused) {
-          await music.play();
-          musicButton.textContent = "Ⅱ Tạm dừng nhạc";
-        } else {
-          music.pause();
-          musicButton.textContent = "♫ Phát nhạc";
-        }
-      } catch (error) {
-        alert("Không phát được nhạc. Hãy kiểm tra file song2.mp3 nhé!");
-        console.error(error);
-      }
-    });
-  </script>
-
-  <!-- Phần quiz của em tiếp tục ở đây -->
-</body>
-
-  <!-- Giữ nguyên phần code quiz hiện tại ở bên dưới -->
-<body>
   <main class="page-shell">
     <section class="lock-card">
 
@@ -142,8 +139,13 @@
       <p class="eyebrow">BROTHER VERIFICATION · 01</p>
 
       <h1>Bài kiểm tra danh tính</h1>
-      
-      </p>
+
+      <!-- NÚT PHÁT / TẠM DỪNG NHẠC -->
+      <button type="button" class="music-button" id="music-button">
+        ♫ Phát nhạc
+      </button>
+
+      <p class="music-status" id="music-status" aria-live="polite"></p>
 
       <p class="quiz-question">
         Anh trai tôi sinh ngày tháng năm nào?
@@ -180,23 +182,51 @@
         hidden
       >
         Tiếp theo →
-</a>
+      </a>
+
     </section>
   </main>
 
   <script>
+    // XỬ LÝ NHẠC
+    const music = document.getElementById("bg-music");
+    const musicButton = document.getElementById("music-button");
+    const musicStatus = document.getElementById("music-status");
+
+    musicButton.addEventListener("click", async () => {
+      if (music.paused) {
+        try {
+          await music.play();
+          musicButton.textContent = "Ⅱ Tạm dừng nhạc";
+          musicStatus.textContent = "";
+        } catch (error) {
+          musicStatus.textContent =
+            "Không phát được nhạc. Hãy kiểm tra file song2.mp3.";
+          console.error("Lỗi phát nhạc:", error);
+        }
+      } else {
+        music.pause();
+        musicButton.textContent = "♫ Phát nhạc";
+        musicStatus.textContent = "";
+      }
+    });
+
+    music.addEventListener("error", () => {
+      musicStatus.textContent =
+        "Không tìm thấy hoặc không đọc được file song2.mp3.";
+    });
+
+    // XỬ LÝ CÂU HỎI QUIZ
     const options = document.querySelectorAll(".quiz-option");
     const feedback = document.querySelector("#quiz-feedback");
     const nextButton = document.querySelector("#next-button");
 
     options.forEach((option) => {
       option.addEventListener("click", () => {
-        // Nếu đã trả lời đúng thì không xử lý thêm
         if (nextButton.classList.contains("visible")) {
           return;
         }
 
-        // Xóa trạng thái cũ để người dùng thử lại
         options.forEach((item) => {
           item.classList.remove("wrong", "correct");
         });
@@ -206,25 +236,22 @@
         if (answer === "C") {
           option.classList.add("correct");
 
-          feedback.textContent =
-            "Chính xác! 🎉";
+          feedback.textContent = "Chính xác! 🎉";
 
-          // Chỉ hiện liên kết khi trả lời đúng
           nextButton.hidden = false;
           nextButton.classList.add("visible");
 
-          // Khóa các đáp án sau khi trả lời đúng
           options.forEach((item) => {
             item.disabled = true;
           });
         } else {
           option.classList.add("wrong");
 
-          feedback.textContent =
-            "Sai mẹ r cha (⁠ಠ⁠_⁠ಠ⁠)";
+          feedback.textContent = "Sai mẹ r cha (⁠ಠ⁠_⁠ಠ⁠)";
         }
       });
     });
   </script>
+
 </body>
 </html>
