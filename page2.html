@@ -32,7 +32,7 @@
       position: relative;
     }
 
-    /* NỀN TRANG TRÍ */
+    /* NỀN TRÁI TIM VÀ ÁNH SÁNG */
 
     .background-effects {
       position: fixed;
@@ -230,13 +230,13 @@
       animation: wishAppear .8s ease both;
     }
 
-    /* TẤT CẢ LỜI CHÚC ĐỀU IN ĐẬM */
+    /* CẢ NĂM ĐOẠN ĐỀU IN ĐẬM */
 
     .bold-wish {
       font-weight: 700;
     }
 
-    /* TỪ ĐẦU CÂU ĐƯỢC TÔ HỒNG ĐẬM */
+    /* TỪ ĐẦU CÂU MÀU HỒNG ĐẬM */
 
     .pink-word {
       color: var(--dark-pink);
@@ -251,6 +251,8 @@
       font-size: 1em;
     }
 
+    /* LỜI CHÚC KẾT THÚC */
+
     .end-message {
       display: none;
       margin-top: 22px;
@@ -263,6 +265,39 @@
     .end-message.show {
       display: block;
       animation: appear .8s ease;
+    }
+
+    /* DÒNG CREDIT DẪN SANG PAGE 3 */
+
+    .credit-link {
+      display: none;
+      width: fit-content;
+      margin: 25px auto 0;
+      padding: 10px 24px;
+      color: var(--dark-pink);
+      font-size: 19px;
+      font-weight: 700;
+      text-decoration: none;
+      background: rgba(255, 250, 253, 0.65);
+      border: 2px solid rgba(255, 255, 255, 0.95);
+      border-radius: 18px;
+      box-shadow: 0 0 15px rgba(237, 117, 170, 0.25);
+      transition: background 0.25s, transform 0.25s;
+    }
+
+    .credit-link.visible {
+      display: block;
+      animation: appear 0.8s ease;
+    }
+
+    .credit-link:hover {
+      background: #f8cfe2;
+      transform: translateY(-3px);
+    }
+
+    .credit-link:focus-visible {
+      outline: 3px solid var(--dark-pink);
+      outline-offset: 4px;
     }
 
     /* BÁNH SINH NHẬT */
@@ -444,7 +479,7 @@
       }
     }
 
-    /* ĐIỆN THOẠI */
+    /* TƯƠNG THÍCH ĐIỆN THOẠI */
 
     @media (max-width: 480px) {
       .page {
@@ -510,7 +545,7 @@
       Chạm vào màn hình để mở lời chúc ♡
     </p>
 
-    <!-- CÁC ĐOẠN LỜI CHÚC -->
+    <!-- NĂM ĐOẠN LỜI CHÚC -->
 
     <section class="wishes-box" aria-label="Những lời chúc sinh nhật">
 
@@ -543,6 +578,8 @@
 
     </section>
 
+    <!-- LỜI CHÚC KẾT THÚC -->
+
     <p class="end-message" id="end-message">
       Chúc mừng sinh nhật anh trai! ♡
       <br>
@@ -550,6 +587,12 @@
       <br>
       Thương anh nhiều! ✧
     </p>
+
+    <!-- CHỈ HIỆN SAU KHI MỞ ĐỦ NĂM ĐOẠN -->
+
+    <a href="page3.html" id="credit-link" class="credit-link">
+      credit →
+    </a>
 
     <!-- BÁNH SINH NHẬT -->
 
@@ -585,46 +628,54 @@
     const wishes = document.querySelectorAll(".wish");
     const instruction = document.getElementById("instruction");
     const endMessage = document.getElementById("end-message");
+    const creditLink = document.getElementById("credit-link");
 
     let currentWish = 0;
 
     function showNextWish() {
-      // Hiện lần lượt từng đoạn lời chúc
+      // Mỗi lần chạm chỉ mở một đoạn
+      if (currentWish >= wishes.length) {
+        return;
+      }
+
+      const current = wishes[currentWish];
+
+      current.classList.add("show");
+      currentWish++;
+
+      // Khi vẫn còn lời chúc chưa mở
       if (currentWish < wishes.length) {
-        const current = wishes[currentWish];
+        instruction.textContent =
+          "Chạm tiếp để đọc lời chúc tiếp theo ♡";
+      } else {
+        // Đã mở đủ năm đoạn
+        instruction.textContent =
+          "Đã mở hết lời chúc rồi đó! ♡";
 
-        current.classList.add("show");
-        currentWish++;
+        instruction.style.animation = "none";
 
-        if (currentWish < wishes.length) {
-          instruction.textContent =
-            "Chạm tiếp để đọc lời chúc tiếp theo ♡";
-        } else {
-          instruction.textContent =
-            "Đã mở hết lời chúc rồi đó! ♡";
+        endMessage.classList.add("show");
+        creditLink.classList.add("visible");
+      }
 
-          endMessage.classList.add("show");
-          instruction.style.animation = "none";
-        }
+      // Cuộn đến đoạn vừa xuất hiện
+      current.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
 
-        // Cuộn nhẹ đến đoạn vừa xuất hiện
-        current.scrollIntoView({
-          behavior: "smooth",
-          block: "nearest"
-        });
-
-        if (currentWish === wishes.length) {
-          setTimeout(() => {
-            endMessage.scrollIntoView({
-              behavior: "smooth",
-              block: "nearest"
-            });
-          }, 500);
-        }
+      // Khi mở xong, cuộn xuống lời chúc cuối và credit
+      if (currentWish === wishes.length) {
+        setTimeout(() => {
+          creditLink.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+          });
+        }, 500);
       }
     }
 
-    // Chạm màn hình để mở từng đoạn
+    // Chạm màn hình để hiện lần lượt các lời chúc
     document.addEventListener("click", (event) => {
       if (event.target.closest("a, button")) {
         return;
@@ -633,141 +684,25 @@
       showNextWish();
     });
 
-    // Hỗ trợ mở lời chúc bằng bàn phím
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        const tag = document.activeElement.tagName;
-
-        if (
-          tag === "BUTTON" ||
-          tag === "A" ||
-          tag === "INPUT" ||
-          tag === "TEXTAREA"
-        ) {
-          return;
-        }
-
-        event.preventDefault();
-        showNextWish();
-      }
-    });
-  </script>
-
-</body>
-</html>
-     
-
-      <p class="wish">
-        <span class="first-letter">T</span>hương chúc anh trai của em
-        một sinh nhật thật nhiều niềm vui, sức khỏe và may mắn!
-        Cảm ơn anh vì đã luôn là chỗ dựa vững chắc
-        và nhường nhịn em
-      </p>
-
-    </section>
-
-    <p class="end-message" id="end-message">
-      Chúc mừng sinh nhật anh trai! ♡
-      <br>
-      Mong rằng mọi điều tốt đẹp nhất sẽ luôn đến với anh.
-      <br>
-      Thương anh nhiều! ✧
-    </p>
-
-    <!-- BÁNH SINH NHẬT -->
-
-    <div class="cake-area" aria-label="Bánh sinh nhật trang trí">
-
-      <div class="cake-plate"></div>
-
-      <div class="cake-body">
-        <div class="cake-icing"></div>
-      </div>
-
-      <div class="cake-candles">
-        <div class="cake-candle">
-          <div class="cake-flame"></div>
-        </div>
-
-        <div class="cake-candle">
-          <div class="cake-flame"></div>
-        </div>
-
-        <div class="cake-candle">
-          <div class="cake-flame"></div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="cake-hearts" aria-hidden="true">♡ ♥ ♡ ♥ ♡</div>
-
-  </main>
-
-  <script>
-    const wishes = document.querySelectorAll(".wish");
-    const instruction = document.getElementById("instruction");
-    const endMessage = document.getElementById("end-message");
-
-    let currentWish = 0;
-
-    function showNextWish() {
-      if (currentWish < wishes.length) {
-        wishes[currentWish].classList.add("show");
-
-        currentWish++;
-
-        if (currentWish < wishes.length) {
-          instruction.textContent =
-            "Chạm tiếp để đọc lời chúc tiếp theo ♡";
-        } else {
-          instruction.textContent =
-            "Đã mở hết lời chúc rồi đó! ♡";
-
-          endMessage.classList.add("show");
-          instruction.style.animation = "none";
-        }
-
-        // Cuộn nhẹ để đoạn vừa hiện nằm trong tầm nhìn
-        wishes[currentWish - 1].scrollIntoView({
-          behavior: "smooth",
-          block: "nearest"
-        });
-
-        if (currentWish === wishes.length) {
-          setTimeout(() => {
-            endMessage.scrollIntoView({
-              behavior: "smooth",
-              block: "nearest"
-            });
-          }, 500);
-        }
-      } else {
-        // Sau khi mở hết lời chúc, chạm thêm không làm mất nội dung
-        endMessage.classList.add("show");
-      }
-    }
-
-    // Chạm vào màn hình để hiện từng đoạn.
-    // Không chặn thao tác cuộn trang hoặc chọn văn bản.
-    document.addEventListener("click", (event) => {
-      if (event.target.closest("a, button")) return;
-
-      showNextWish();
-    });
-
     // Hỗ trợ bàn phím
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        const tag = document.activeElement.tagName;
-
-        if (tag === "BUTTON" || tag === "A" || tag === "INPUT") {
-          return;
-        }
-
-        event.preventDefault();
-        showNextWish();
+      if (event.key !== "Enter" && event.key !== " ") {
+        return;
       }
+
+      const tag = document.activeElement.tagName;
+
+      if (
+        tag === "BUTTON" ||
+        tag === "A" ||
+        tag === "INPUT" ||
+        tag === "TEXTAREA"
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      showNextWish();
     });
   </script>
 
